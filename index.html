@@ -3,11 +3,12 @@
 <head>
     <style>
         body { margin: 0; background: #1a1a1a; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-        .card { display: flex; flex-direction: column; }
-        img, video { width: 100%; transition: 0.3s; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; padding: 10px; }
+        .card { display: flex; flex-direction: column; background: #222; border-radius: 5px; overflow: hidden; }
+        img, video { width: 100%; height: 200px; object-fit: cover; transition: 0.3s; }
         .card:hover { transform: scale(1.02); }
-        .btn { background: #333; color: #fff; text-align: center; padding: 5px; text-decoration: none; font-size: 12px; }
+        .btn { background: #333; color: #fff; text-align: center; padding: 8px; text-decoration: none; font-size: 12px; }
+        .btn:hover { background: #444; }
     </style>
 </head>
 <body>
@@ -21,12 +22,15 @@
                 lista.forEach(nome => {
                     const div = document.createElement('div');
                     div.className = 'card';
-                    // Verifica se é vídeo ou imagem
-                    const midia = nome.endsWith('.webm') 
-                        ? `<video src="futaba/futaba/${nome}"></video>` 
-                        : `<img src="futaba/futaba/${nome}">`;
                     
-                    div.innerHTML = `${midia}<a href="futaba/futaba/${nome}" download class="btn">Baixar</a>`;
+                    // Verifica se é vídeo
+                    const isVideo = nome.endsWith('.webm');
+                    const midia = isVideo 
+                        ? `<video src="futaba/${nome}" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>` 
+                        : `<img src="futaba/${nome}" loading="lazy">`;
+                    
+                    // O href agora aponta corretamente para a pasta futaba/
+                    div.innerHTML = `${midia}<a href="futaba/${nome}" download class="btn">Baixar</a>`;
                     container.appendChild(div);
                 });
             });
