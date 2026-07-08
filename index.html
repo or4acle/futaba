@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <style>
+        body { margin: 0; background: #1a1a1a; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+        .card { display: flex; flex-direction: column; }
+        img, video { width: 100%; transition: 0.3s; }
+        .card:hover { transform: scale(1.02); }
+        .btn { background: #333; color: #fff; text-align: center; padding: 5px; text-decoration: none; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div id="galeria" class="grid"></div>
+
+    <script>
+        fetch('fotos.json')
+            .then(r => r.json())
+            .then(lista => {
+                const container = document.getElementById('galeria');
+                lista.forEach(nome => {
+                    const div = document.createElement('div');
+                    div.className = 'card';
+                    // Verifica se é vídeo ou imagem
+                    const midia = nome.endsWith('.webm') 
+                        ? `<video src="futaba/futaba/${nome}"></video>` 
+                        : `<img src="futaba/futaba/${nome}">`;
+                    
+                    div.innerHTML = `${midia}<a href="futaba/futaba/${nome}" download class="btn">Baixar</a>`;
+                    container.appendChild(div);
+                });
+            });
+    </script>
+</body>
+</html>
