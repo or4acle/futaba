@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <style>
+<<<<<<< HEAD
         /* Estilos simples */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; padding: 20px; }
         .card img { width: 100%; cursor: pointer; transition: 0.3s; }
@@ -9,6 +10,15 @@
         /* Modal de Preview */
         #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
         #modal img { max-width: 90%; max-height: 80%; }
+=======
+        body { margin: 0; background: #1a1a1a; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; padding: 10px; }
+        .card { display: flex; flex-direction: column; background: #222; border-radius: 5px; overflow: hidden; }
+        img, video { width: 100%; height: 200px; object-fit: cover; transition: 0.3s; }
+        .card:hover { transform: scale(1.02); }
+        .btn { background: #333; color: #fff; text-align: center; padding: 8px; text-decoration: none; font-size: 12px; }
+        .btn:hover { background: #444; }
+>>>>>>> c43a658288b302de1dd9109ce717c173fc91a23b
     </style>
 </head>
 <body>
@@ -26,6 +36,7 @@
     </div>
 
     <script>
+<<<<<<< HEAD
         let dadosGlobais = [];
 
         fetch('fotos.json').then(r => r.json()).then(lista => {
@@ -44,6 +55,26 @@
                     document.getElementById('modal').style.display = 'flex';
                 };
                 container.appendChild(img);
+=======
+        fetch('fotos.json')
+            .then(r => r.json())
+            .then(lista => {
+                const container = document.getElementById('galeria');
+                lista.forEach(nome => {
+                    const div = document.createElement('div');
+                    div.className = 'card';
+                    
+                    // Verifica se é vídeo
+                    const isVideo = nome.endsWith('.webm');
+                    const midia = isVideo 
+                        ? `<video src="futaba/${nome}" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>` 
+                        : `<img src="futaba/${nome}" loading="lazy">`;
+                    
+                    // O href agora aponta corretamente para a pasta futaba/
+                    div.innerHTML = `${midia}<a href="futaba/${nome}" download class="btn">Download</a>`;
+                    container.appendChild(div);
+                });
+>>>>>>> c43a658288b302de1dd9109ce717c173fc91a23b
             });
         }
 
